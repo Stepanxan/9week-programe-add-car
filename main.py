@@ -3,48 +3,51 @@ from models.models import Users
 import json
 
 
-
-class Controller(Users):
+class Controller():
     file = 'users.json'
 
     def add_run(self):
-        if __name__ == '__main__':
+        while True:
+            print("1. Add New Users\n"
+                  + "2. Get All Users\n"
+                  + "3. Search\n"
+                  + "4. Update User By Id\n"
+                  + "5. Add CAR"
+                  )
+            choose = int(input("Type your choose: "))
+            self.controller(menu_flag=choose)
 
-            while True:
-                print("1. Add New Users\n"
-                       + "2. Get All Users\n"
-                       + "3. Search\n"
-                       + "4. Update User By Id"
-                      )
-                menu_flag = int(input("Type your choose: "))
-
-    @classmethod
-    def user_add(self, menu_flag=1):
+    def controller(self, menu_flag):
         if menu_flag == 1:
-            email = int(input("email: "))
-            password = input("password: ")
-            first_name = input("first_name: ")
-            last_name = int(input("last_name: "))
-            address = int(input("address: "))
-            users = Users(id, email, password, first_name, last_name, address)
-            users.save()
-
-    @classmethod
-    def add_car(self, menu_flag=2):
+            self.user_add()
         if menu_flag == 2:
-            models = int(input("models: "))
-            number = input("number: ")
-            speed = input("speed: ")
-            user = int(input("user: "))
-            graduation = int(input("graduation: "))
-            car = Car(models, number, speed, user, graduation)
-            car.save()
+            self.get_all()
+
 
     @classmethod
-    def get_all(cls, menu_flag=3):
+    def user_add(self):
+        email = int(input("email: "))
+        password = input("password: ")
+        first_name = input("first_name: ")
+        last_name = int(input("last_name: "))
+        address = int(input("address: "))
+        users = Users(email, password, first_name, last_name, address)
+        users.save()
+
+    @classmethod
+    def add_car(self):
+        models = int(input("models: "))
+        number = input("number: ")
+        speed = input("speed: ")
+        user = int(input("user: "))
+        graduation = int(input("graduation: "))
+        car = Car(models, number, speed, user, graduation)
+        car.save()
+
+    @classmethod
+    def get_all(cls):
         global data
-        if menu_flag == 3:
-            data = cls.get_file_data(cls.file)
+        data = cls.get_file_data(cls.file)
         return data
 
     @classmethod
@@ -61,7 +64,7 @@ class Controller(Users):
                         print("Address: " + user['address'])
 
     @staticmethod
-    def update_user(cls, menu_flag = 5):
+    def update_user(cls, menu_flag=5):
         if menu_flag == 5:
             file = open('database/users.json', 'r')
             users = json.loads(file.read())
@@ -84,11 +87,10 @@ class Controller(Users):
         data = json.loads(file.read())
         file.close()
         return data
-
-    @staticmethod
-    def save_to_file(self, data):
-        data = json.dumps(data)
-        file = open('database/' + self.file, "w")
-        file.write(data)
-        file.close()
-
+    #
+    # @staticmethod
+    # def save_to_file(self, data):
+    #     data = json.dumps(data)
+    #     file = open('database/' + self.file, "w")
+    #     file.write(data)
+    #     file.close()

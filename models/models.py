@@ -20,7 +20,7 @@ class Users():
             'address': self.address
         }
 
-    def get_file_data(str, file_name):
+    def get_file_data(self, file_name):
         file = open("database/" + file_name, 'r')
         data = json.loads(file.read())
         file.close()

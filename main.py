@@ -22,27 +22,23 @@ class Controller():
             self.user_add()
         if menu_flag == 2:
             self.get_all()
+        if menu_flag == 3:
+            self.search_by()
+        if menu_flag == 4:
+            self.update_user()
+        if menu_flag == 5:
+            self.add_car()
 
 
     @classmethod
     def user_add(self):
-        email = int(input("email: "))
+        email = str(input("email: "))
         password = input("password: ")
-        first_name = input("first_name: ")
-        last_name = int(input("last_name: "))
-        address = int(input("address: "))
+        first_name = str(input("first_name: "))
+        last_name = str(input("last_name: "))
+        address = str(input("address: "))
         users = Users(email, password, first_name, last_name, address)
         users.save()
-
-    @classmethod
-    def add_car(self):
-        models = int(input("models: "))
-        number = input("number: ")
-        speed = input("speed: ")
-        user = int(input("user: "))
-        graduation = int(input("graduation: "))
-        car = Car(models, number, speed, user, graduation)
-        car.save()
 
     @classmethod
     def get_all(cls):
@@ -80,6 +76,15 @@ class Controller():
                     user['first_name'] = first_name
                     user['last_name'] = last_name
                     user['address'] = address
+    @classmethod
+    def add_car(self):
+        models = str(input("models: "))
+        number = str(input("number: "))
+        speed = input("speed: ")
+        user = str(input("user: "))
+        graduation = str(input("graduation: "))
+        car = Car(models, number, speed, user, graduation)
+        car.save()
 
     @staticmethod
     def get_file_data(file_name):

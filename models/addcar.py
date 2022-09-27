@@ -2,7 +2,7 @@ import json
 
 
 class Car():
-    file = "defolt.json"
+    file = "car.json"
 
     def __init__(self, models, number, speed, user, graduation):
         self.models = models

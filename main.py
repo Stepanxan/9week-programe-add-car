@@ -22,10 +22,6 @@ class Controller():
             self.user_add()
         if menu_flag == 2:
             self.get_all()
-        if menu_flag == 3:
-            self.search_by()
-        if menu_flag == 4:
-            self.update_user()
         if menu_flag == 5:
             self.add_car()
 
@@ -47,8 +43,8 @@ class Controller():
         return data
 
     @classmethod
-    def search_by(search_str, what_to_search, menu_flag=4):
-        if menu_flag == 4:
+    def search_by(search_str, what_to_search, menu_flag=3):
+        if menu_flag == 3:
             with open('database/users.json', 'r') as file:
                 users = json.loads(file.read())
                 for user in users:
@@ -60,8 +56,8 @@ class Controller():
                         print("Address: " + user['address'])
 
     @staticmethod
-    def update_user(cls, menu_flag=5):
-        if menu_flag == 5:
+    def update_user(cls, menu_flag=4):
+        if menu_flag == 4:
             file = open('database/users.json', 'r')
             users = json.loads(file.read())
             file.close()

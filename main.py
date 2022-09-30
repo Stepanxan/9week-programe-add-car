@@ -22,6 +22,12 @@ class Controller():
             self.user_add()
         if menu_flag == 2:
             self.get_all()
+        if menu_flag == 3:
+            what_to_search = input('By Which Parametr you want to search: ')
+            search_str = input('Search: ')
+            self.search_by(search_str, what_to_search)
+        if menu_flag == 4:
+            self.update_user()
         if menu_flag == 5:
             self.add_car()
 
@@ -43,35 +49,33 @@ class Controller():
         return data
 
     @classmethod
-    def search_by(search_str, what_to_search, menu_flag=3):
-        if menu_flag == 3:
-            with open('database/users.json', 'r') as file:
-                users = json.loads(file.read())
-                for user in users:
-                    if str(user[what_to_search]).lower() == str(search_str).lower():
-                        print("Email #" + str(user['email']))
-                        print("Password: " + user['password'])
-                        print("First_name: " + user['first_name'])
-                        print("Last_name: " + user['last_name'])
-                        print("Address: " + user['address'])
-
-    @staticmethod
-    def update_user(cls, menu_flag=4):
-        if menu_flag == 4:
-            file = open('database/users.json', 'r')
+    def search_by(search_str, what_to_search):
+        with open('database/users.json', 'r') as file:
             users = json.loads(file.read())
-            file.close()
-            email = input("Email: ")
-            password = input("Password: ")
-            first_name = input("First_name: ")
-            last_name = input("Last_name: ")
-            address = input("Address: ")
             for user in users:
-                if user['email'] == email:
-                    user['password'] = password
-                    user['first_name'] = first_name
-                    user['last_name'] = last_name
-                    user['address'] = address
+                if str(user[what_to_search]).lower() == str(search_str).lower():
+                    print("Email #" + str(user['email']))
+                    print("Password: " + user['password'])
+                    print("First_name: " + user['first_name'])
+                    print("Last_name: " + user['last_name'])
+                    print("Address: " + user['address'])
+
+    @classmethod
+    def update_user(cls):
+        file = open('database/users.json', 'r')
+        users = json.loads(file.read())
+        file.close()
+        email = input("Email: ")
+        password = input("Password: ")
+        first_name = input("First_name: ")
+        last_name = input("Last_name: ")
+        address = input("Address: ")
+        for user in users:
+            if user['email'] == email:
+                user['password'] = password
+                user['first_name'] = first_name
+                user['last_name'] = last_name
+                user['address'] = address
     @classmethod
     def add_car(self):
         models = str(input("models: "))

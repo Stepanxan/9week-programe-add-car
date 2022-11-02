@@ -1,7 +1,7 @@
 from models.addcar import Car
 from models.models import Users
+from create_table import create_db_connection
 import json
-
 
 class Controller():
     file = 'users.json'
@@ -12,7 +12,8 @@ class Controller():
                   + "2. Get All Users\n"
                   + "3. Search\n"
                   + "4. Update User By Id\n"
-                  + "5. Add CAR"
+                  + "5. Add CAR\n"
+                  + "6. Conection database"
                   )
             choose = int(input("Type your choose: "))
             self.controller(menu_flag=choose)
@@ -30,6 +31,13 @@ class Controller():
             self.update_user()
         if menu_flag == 5:
             self.add_car()
+        if menu_flag == 6:
+            host_name = input('Enter host: ')
+            user_name = input('Enter user name: ')
+            user_password = input('Enter password: ')
+            db_name = input('Enter database name: ')
+            create_db_connection(host_name, user_name, user_password, db_name)
+
 
 
     @classmethod
@@ -92,6 +100,7 @@ class Controller():
         data = json.loads(file.read())
         file.close()
         return data
+
     #
     # @staticmethod
     # def save_to_file(self, data):

@@ -1,8 +1,6 @@
-import json
-
+from create_table import *
 
 class Users():
-    file = "users.json"
 
     def __init__(self, email, password, first_name, last_name, address):
         self.email = email
@@ -20,20 +18,15 @@ class Users():
             'address': self.address
         }
 
-    def get_file_data(self, file_name):
-        file = open("database/" + file_name, 'r')
-        data = json.loads(file.read())
-        file.close()
-        return data
-
-    def save_to_file(self, data):
-        data = json.dumps(data)
-        file = open('database/' + self.file, "w")
-        file.write(data)
-        file.close()
 
     def save(self):
-        users_in_dict_format = self._generate_dict()
-        users = self.get_file_data(self.file)
-        users.append(users_in_dict_format)
-        self.save_to_file(users)
+        try:
+            connection = create_db_connection(**self.con_string)
+            connection.begin()
+            with connection.cursor() as cursor:
+                execute_query = """INSERT INTO users
+                   (email, password, first_name, last_name, addresss)
+                   VALUES (%s, %s, %s, %s, %s)"""
+                cursor.execute(execute_query)
+        finally:
+            self.cursor.execute()
